@@ -12,7 +12,7 @@ ecgFile = '100';
 [signal, frequency, time] = rdsamp(ecgFile, 1, 650000);
 
 firstSample = 1;
-lastSample = 1000;
+lastSample = 2000;
 subTime1 = time(firstSample:lastSample);
 subSignal1 = signal(firstSample:lastSample);
 
@@ -166,4 +166,54 @@ subplot(3, 1, 1)
 hold on
 plot(time5_R_peak, signal5_R_peak, 'bo', 'LineWidth', 2);
 
+
+%%
+
+
+DeltaT_Beat=diff(time5_R_peak);
+DeltaT_Beat=[0 DeltaT_Beat];
+
+coeff3=0.125; PoB(1)=1;
+for i5=2:length(index_R_peak)
+    PoB(i5)=PoB(i5-1) - (coeff3 * (PoB(i5-1) - DeltaT_Beat(i5)));
+end
+TH2=(sum(PoB)/(length(PoB)))*(0.5);
+
+
+c7=2;
+index_R_peak_TH2(1)=index_R_peak(1);
+for i7=1:length(DeltaT_Beat)
+    if( DeltaT_Beat(i7) > TH2 )
+        index_R_peak_TH2(c7) = index_R_peak(i7);
+        c7=c7+1;
+    end
+end
+
+subplot(3,1,1)
+S6_R_peak_TH2=subSignal3(index_R_peak_TH2);
+t6_R_peak_TH2=subTime3(index_R_peak_TH2);             
+hold on
+plot(t6_R_peak_TH2, S6_R_peak_TH2, 'yO', 'LineWidth', 3);
+
+legend('ECG Signal', 'Asynchronous-Signal', 'Peak-Flag', ...
+    'R-Peak-Flag with TH1', 'R-peak-Flag with TH2');
+
+
+[ann, anntype, subtype, chan, num, comments] = rdann(ecgFile, 'atr', 1, lastSample);
+ann_starting_index=0;
+for i8=1:length(ann)
+    if ann(i8) >= firstSample
+        ann_starting_index=i8;
+        break;
+    end
+end
+ann2=ann(ann_starting_index:length(ann));
+
+input_signal=signal(firstSample:lastSample);
+t1=time(firstSample:lastSample);
+t_ann=time(ann2(2:length(ann2)));
+subplot(3,1,2);
+plot(t1, input_signal);
+hold on
+plot(t_ann, signal(ann2(2:length(ann2))), 'ro', 'LineWidth', 1.3);
 % ---------------------------------------------------------------
