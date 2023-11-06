@@ -8,7 +8,6 @@ By combining the power of bioinformatics with the expertise of software engineer
 - [Usage](#usage)
 - [Installation](#installation)
 - [Contributors](#contributors)
-- [Author](#author)
 - [License](#license)
 
 ## Usage
@@ -35,10 +34,6 @@ To get started, follow these steps:
 ## Contributors
 
 Feel free to share your ideas or any other problems. Pull requests are welcomed.
-
-## Author
-
-- [Mehdi Karami](https://www.github.com/mehdi2003karami)
 
 ## License
 
