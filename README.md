@@ -17,7 +17,7 @@ This repo contains the following files and directories:
 
 [code.m](Codes/code.m) -> This MATLAB file contains the code for analyzing the MIT-BIH Arrhythmia Database and performing heart disease diagnosis.
 
-*-Assignment -> This directories contains the Assignment of University Lesson.
+*-Assignment -> These directories contain the Assignment of University Lesson.
 
 README.md -> This file provides an overview of the project.
 
